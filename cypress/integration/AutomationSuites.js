@@ -2,6 +2,7 @@
 /// <reference types="cypress" />
 describe('API Testing ', () => {
         context('API Planet Instance', () => {
+
           it('Verify the follwing response Headers', () => {
               cy.request({
                 method: 'GET',
@@ -23,6 +24,7 @@ describe('API Testing ', () => {
                     expect(response.headers['x-frame-options']).eq("SAMEORIGIN")
                 });
             });
+
             it('Verify the follwing response Time is less then 3ms', () => {
                   cy.request({
                     method: 'GET',
@@ -36,6 +38,7 @@ describe('API Testing ', () => {
                         expect(response.duration).to.not.be.greaterThan(3000)
                     });
                 });
+
             it('Verify the follwing response Data', () => {
                   cy.request({
                     method: 'GET',
@@ -64,6 +67,7 @@ describe('API Testing ', () => {
                             expect(response.status).eq(405)
                         });
                     });
+                    
                     it('Negative Test Verify that the response Message equals to Method POST not allowed.', () => {
                         cy.request({
                           method: 'POST',
@@ -78,6 +82,7 @@ describe('API Testing ', () => {
                               expect(response.body.detail).eq("Method 'POST' not allowed.")
                           });
                       });
+
                       it('Negative Test Verify JSON Schema', () => {
                         cy.request({
                           method: 'GET',
