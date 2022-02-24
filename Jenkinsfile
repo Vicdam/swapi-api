@@ -1,5 +1,12 @@
 pipeline {
-  agent any
+     agent {
+    // this image provides everything needed to run Cypress
+    docker { image 'cypress/base:latest'}
+  }
+    
+    environment {
+        BUILD_USER = ''
+    }
 
   tools {nodejs "node"}
 
@@ -10,18 +17,18 @@ pipeline {
 
   stages {    
       
-    stage('Testing') {
+    stage('Install dependencies') {
       steps {
-        sh 'npm install'
-	sh 'npx cypress run --browser ${BROWSER} --spec "${SPEC}"'
+        sh 'npm i'
+		sh 'npm install cypress --save-dev'
       }
     }
 
-	stage('Deployment') {
+	stage('run cypress') {
       steps {
-	echo "Deploying"
+        sh 'npm ci'
+        sh "npm run test:ci:record"
       }
-    }    
-     
+    }
   }
 }
